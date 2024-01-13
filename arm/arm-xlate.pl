@@ -384,12 +384,13 @@ sub expand_line {
     return $line;
 }
 
-if ($flavour =~ /win(32|64)/) {
+if ($flavour =~ /(linux|win|ios)(32|64)/) {
     print<<___;
- GBLA __SIZEOF_POINTER__
-__SIZEOF_POINTER__ SETA $1/8
+.global __SIZEOF_POINTER__
+.set __SIZEOF_POINTER__,$2/8
 ___
 }
+
 
 while(my $line=<>) {
 
